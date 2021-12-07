@@ -1,34 +1,3 @@
-// HEAD/STYLE
-// #tooltip {
-//     position: absolute;
-//     width: 200px;
-//     height: auto;
-//     padding: 10px;
-//     background-color: blanchedalmond;
-//     -webkit-border-radius: 10px;
-//     -moz-border-radius: 10px;
-//     border-radius: 10px;
-//     -webkit-box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-//     -moz-box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-//     box-shadow:  4px 4px 10px rgba(0,0,0,0.4);
-//     pointer-events: none;
-
-// }
-// #tooltip.hidden {
-//     display: none;
-// }
-// #tooltip p{
-//     margin: 0;
-//     font-family: sans-serif;
-//     font-size: 16px;
-//     line-height: 20px;
-// }
-// BODY
-<div id="tooltip" class="hidden">
-<p><strong>Bar Value</strong></p>
-<p><span id="value">1</span></p>
-</div>
-
 function main() {
 	var svg = d3.select("svg"),
         margin = 200,
@@ -40,7 +9,7 @@ function main() {
        .attr("x", 50)
        .attr("y", 50)
        .attr("font-size", "24px")
-       .text("Stock Price")
+       .text("Avocado Price")
 
     var xScale = d3.scaleBand().range([0, width]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]);
@@ -70,7 +39,7 @@ function main() {
 	 .attr('dy', '-5em')
 	 .attr('text-anchor', 'end')
 	 .attr('stroke', 'black')
-	 .text('Stock Price in USD')
+	 .text('Avocado Price in USD')
 
         g.selectAll(".bar")
          .data(data)
@@ -91,18 +60,20 @@ function main() {
 	// Mouseover event handler
 
 	function onMouseOver(d, i) {
-		// Get this bar's xy values, then augment for the tooltip
+		// Get bar's xy values, ,then augment for the avocado
 		var xPos = parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() / 2;
-		var yPos = parseFloat(d3.select(this).attr('y')) / 2 + height / 2;
-		// Update the tooltip position and value
-		d3.select("#tooltip")
+		var yPos = parseFloat(d3.select(this).attr('y')) / 2 + height / 2
+
+		// Update Avocado's position and value
+		d3.select('#avocado')
 			.style('left', xPos + 'px')
 			.style('top', yPos + 'px')
-			.select("#value").text(i.value)
-		// Show Tooltip
-		d3.select("#tooltip").classed("hidden", false);
-		// 
-        d3.select(this).attr('class','highlight')
+			.select('#value').text(i.value)
+		
+		d3.select('#avocado').classed('hidden', false);
+
+
+		d3.select(this).attr('class','highlight')
 		d3.select(this)
 			.transition() // I want to add animnation here
 			.duration(500)
@@ -121,7 +92,7 @@ function main() {
 			.attr('width', xScale.bandwidth())
 			.attr('y', function(d){return yScale(d.value);})
 			.attr('height', function(d) {return height - yScale(d.value)})
-		// Hide Tooltip	
-		d3.selectAll('#tooltip').classed("hidden", true);
+		
+		d3.select('#avocado').classed('hidden', true);
 	}
 }
