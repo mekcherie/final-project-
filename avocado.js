@@ -20,6 +20,8 @@ function main() {
     d3.csv("../data/avocado-ten.csv").then( function(data) {
         xScale.domain(data.map(function(d) { return d.year; }));
         yScale.domain([0, d3.max(data, function(d) { return d.AveragePrice; })]);
+		// yScale.domain([0, d3.max(data, function(d) { return d.region; })]);
+
 
         g.append("g")
          .attr("transform", "translate(0," + height + ")")
