@@ -19,14 +19,14 @@ function main() {
 
     d3.csv("../data/avocado-ten.csv").then( function(data) {
         xScale.domain(data.map(function(d) { return d.year; }));
-        yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
+        yScale.domain([0, d3.max(data, function(d) { return d.AveragePrice; })]);
 
         g.append("g")
          .attr("transform", "translate(0," + height + ")")
          .call(d3.axisBottom(xScale))
          .append("text")
-         .attr("y", height - 250)
-         .attr("x", width - 100)
+         .attr("y", height - 325)
+         .attr("x", width + 20) 
          .attr("text-anchor", "end")
          .attr("stroke", "black")
          .text("Year");
@@ -48,13 +48,13 @@ function main() {
 	 .on("mouseover", onMouseOver) // Add listener for event
 	 .on("mouseout", onMouseOut)
          .attr("x", function(d) { return xScale(d.year); })
-         .attr("y", function(d) { return yScale(d.value); })
+         .attr("y", function(d) { return yScale(d.AveragePrice); })
          .attr("width", xScale.bandwidth())
 	 .transition()
 	 .ease(d3.easeLinear)
 	 .duration(500)
 	 .delay(function(d,i){ return i * 50})
-         .attr("height", function(d) { return height - yScale(d.value); });
+         .attr("height", function(d) { return height - yScale(d.AveragePrice); });
 	})
        
 	// Mouseover event handler
@@ -78,8 +78,8 @@ function main() {
 			.transition() // I want to add animnation here
 			.duration(500)
 			.attr('width', xScale.bandwidth() + 5)
-			.attr('y', function(d){return yScale(d.value) - 10;})
-			.attr('height', function(d){return height - yScale(d.value) + 10;})
+			.attr('y', function(d){return yScale(d.AveragePrice) - 10;})
+			.attr('height', function(d){return height - yScale(d.AveragePrice) + 10;})
 
 	}
 
@@ -90,8 +90,8 @@ function main() {
 			.transition()
 			.duration(500)
 			.attr('width', xScale.bandwidth())
-			.attr('y', function(d){return yScale(d.value);})
-			.attr('height', function(d) {return height - yScale(d.value)})
+			.attr('y', function(d){return yScale(d.AveragePrice);})
+			.attr('height', function(d) {return height - yScale(d.AveragePrice)})
 		
 		d3.select('#avocado').classed('hidden', true);
 	}
